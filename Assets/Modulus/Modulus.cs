@@ -13,6 +13,7 @@ public class Modulus : MonoBehaviour {
             modulusMaterial.hideFlags = HideFlags.HideAndDontSave;
         }
 
+        modulusMaterial.SetFloat("radius", 3);
         Graphics.Blit(source, destination, modulusMaterial);
     }
 }

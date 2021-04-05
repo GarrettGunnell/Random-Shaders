@@ -12,6 +12,8 @@
             #pragma vertex vert
             #pragma fragment frag
 
+            #pragma target 5.0
+
             #include "UnityCG.cginc"
 
             struct appdata {
@@ -34,14 +36,14 @@
 
             sampler2D _MainTex;
             float4 _MainTex_TexelSize;
+            int radius;
 
             fixed4 frag(v2f f) : SV_Target {
                 fixed4 col = 0;
-                int x = f.uv.x * _MainTex_TexelSize.z;
-                int y = f.uv.y * _MainTex_TexelSize.w;
-
-                if (x % 2 == 0)
-                    col.r = 1;
+                int x = (f.uv.x * _MainTex_TexelSize.z);
+                int y = (f.uv.y * _MainTex_TexelSize.w);
+                
+                col = (x * y) & radius;
                 
                 return col;
             }
