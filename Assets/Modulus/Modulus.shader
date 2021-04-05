@@ -33,11 +33,16 @@
             }
 
             sampler2D _MainTex;
+            float4 _MainTex_TexelSize;
 
             fixed4 frag(v2f f) : SV_Target {
-                fixed4 col = tex2D(_MainTex, f.uv);
+                fixed4 col = 0;
+                int x = f.uv.x * _MainTex_TexelSize.z;
+                int y = f.uv.y * _MainTex_TexelSize.w;
+
+                if (x % 2 == 0)
+                    col.r = 1;
                 
-                col.rgb = 1 - col.rgb;
                 return col;
             }
             ENDCG
