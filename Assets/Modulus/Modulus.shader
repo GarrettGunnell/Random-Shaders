@@ -40,8 +40,8 @@
 
             fixed4 frag(v2f f) : SV_Target {
                 fixed4 col = 0;
-                int x = (f.uv.x * _MainTex_TexelSize.z);
-                int y = (f.uv.y * _MainTex_TexelSize.w);
+                int x = (f.uv.x * _MainTex_TexelSize.z) / 2;
+                int y = (f.uv.y * _MainTex_TexelSize.w) / 2;
                 
                 col = (x * y) & radius;
                 
