@@ -9,13 +9,18 @@ public class Modulus : MonoBehaviour {
     private int radius = 1;
     private float timer = 0;
     private int frameCount = 0;
-    private bool capturing = false;
+    public bool capturing = true;
     private Material modulusMaterial;
 
     void Update() {
         if (timer > 0.1 && radius < 94) {
             radius++;
             timer = 0;
+        }
+
+        if (radius >= 94 && timer > 1) {
+            capturing = false;
+            Debug.Log("Finished");
         }
 
         timer += Time.deltaTime;
@@ -29,7 +34,7 @@ public class Modulus : MonoBehaviour {
         }
 
         modulusMaterial.SetFloat("radius", radius);
-        Graphics.Blit(source, destination, modulusMaterial);
+        Graphics.Blit(source, destination, modulusMaterial, 1);
     }
 
     private void LateUpdate() {
