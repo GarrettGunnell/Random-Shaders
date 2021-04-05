@@ -13,7 +13,7 @@ public class Modulus : MonoBehaviour {
     private Material modulusMaterial;
 
     void Update() {
-        if (timer > 0.1 && radius < 94) {
+        if (timer > 0.1 && radius < 96) {
             radius++;
             timer = 0;
         }
@@ -34,7 +34,7 @@ public class Modulus : MonoBehaviour {
         }
 
         modulusMaterial.SetFloat("radius", radius);
-        Graphics.Blit(source, destination, modulusMaterial, 1);
+        Graphics.Blit(source, destination, modulusMaterial, 2);
     }
 
     private void LateUpdate() {
