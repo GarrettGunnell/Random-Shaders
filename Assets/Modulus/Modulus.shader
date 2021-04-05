@@ -43,8 +43,16 @@
                 int x = (f.uv.x * _MainTex_TexelSize.z) / 2;
                 int y = (f.uv.y * _MainTex_TexelSize.w) / 2;
                 
-                col = (x * y) & radius;
-                
+                if ((x & y) & radius) {
+                    col.r = 63.0 / 255.0;
+                    col.g = 171.0 / 255.0;
+                    col.b = 147.0 / 255.0;
+                } else {
+                    col.r = 228.0 / 255.0;
+                    col.g = 193.0 / 255.0;
+                    col.b = 177.0 / 255.0;
+                }
+
                 return col;
             }
             ENDCG

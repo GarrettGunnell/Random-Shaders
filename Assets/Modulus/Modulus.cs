@@ -8,15 +8,18 @@ public class Modulus : MonoBehaviour {
     
     private int radius = 1;
     private float timer = 0;
+    private int frameCount = 0;
+    private bool capturing = false;
     private Material modulusMaterial;
 
     void Update() {
-        if (timer > 0.25) {
+        if (timer > 0.1 && radius < 94) {
             radius++;
             timer = 0;
         }
 
         timer += Time.deltaTime;
+        frameCount++;
     }
 
     void OnRenderImage(RenderTexture source, RenderTexture destination) {
@@ -27,5 +30,21 @@ public class Modulus : MonoBehaviour {
 
         modulusMaterial.SetFloat("radius", radius);
         Graphics.Blit(source, destination, modulusMaterial);
+    }
+
+    private void LateUpdate() {
+        if (capturing) {
+            RenderTexture rt = new RenderTexture(506, 506, 24);
+            GetComponent<Camera>().targetTexture = rt;
+            Texture2D screenshot = new Texture2D(506, 506, TextureFormat.RGB24, false);
+            GetComponent<Camera>().Render();
+            RenderTexture.active = rt;
+            screenshot.ReadPixels(new Rect(0, 0, 506, 506), 0, 0);
+            GetComponent<Camera>().targetTexture = null;
+            RenderTexture.active = null;
+            Destroy(rt);
+            string filename = string.Format("{0}/../Recordings/{1:000000}.png", Application.dataPath, frameCount);
+            System.IO.File.WriteAllBytes(filename, screenshot.EncodeToPNG());
+        }
     }
 }
